@@ -7,12 +7,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-HzUaiJdCTIY/RL2vDPRGdEQHHahjzwoJJzGUkYjHVzTwXFQ2QN/nVgX7tzoMW3Ov" crossorigin="anonymous">
   <script src="https://use.fontawesome.com/9efa8a51cb.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <title>FriendFinder | Survey</title>
 </head>
 
 <body>
+
   <div class="container">
     <h1>Friend Finder Survey</h1>
     <p>All fields are required</p>
@@ -146,59 +148,59 @@
 
 
   <script type="text/javascript">
-    console.log("JS is running");
-    console.log($('#email').val());
+  // Create an object constructor to generate a user with responses
+  var friendProfile = function(name, picture, responseObj) {
+    this.name = name;
+    this.picture = picture;
+    this.responseObj = responseObj;
+  };
 
-    // Create an object constructor to generate a user with responses
-    var friendProfile = function(name, picture, responseObj) {
-      this.name = name;
-      this.picture = picture;
-      this.responseObj = responseObj;
-    };
+  // Create global variables including those to hold responses to questions
+  var friendName = "";
+  var imageLink = "";
+  var q01Answer = 0;
+  var q02Answer = 0;
+  var q03Answer = 0;
+  var q04Answer = 0;
+  var q05Answer = 0;
+  var q06Answer = 0;
+  var q07Answer = 0;
+  var q08Answer = 0;
+  var q09Answer = 0;
+  var q10Answer = 0;
+  var responses = [];
 
-    // Create global variables including those to hold responses to questions
-    var friendName = "";
-    var imageLink = "";
-    var q01Answer = 0;
-    var q02Answer = 0;
-    var q03Answer = 0;
-    var q04Answer = 0;
-    var q05Answer = 0;
-    var q06Answer = 0;
-    var q07Answer = 0;
-    var q08Answer = 0;
-    var q09Answer = 0;
-    var q10Answer = 0;
-    var responses = [];
+  // Capture submit and store integers for each response
+  $("#submitButton").on("click", function() {
+    event.preventDefault();
+    friendName = $("#friendName").val().trim();
+    imageLink = $("#imageLink").val().trim();
+    q01Answer = parseInt($("#q01").val().trim());
+    q02Answer = parseInt($("#q02").val().trim());
+    q03Answer = parseInt($("#q03").val().trim());
+    q04Answer = parseInt($("#q04").val().trim());
+    q05Answer = parseInt($("#q05").val().trim());
+    q06Answer = parseInt($("#q06").val().trim());
+    q07Answer = parseInt($("#q07").val().trim());
+    q08Answer = parseInt($("#q08").val().trim());
+    q09Answer = parseInt($("#q09").val().trim());
+    q10Answer = parseInt($("#q10").val().trim());
 
-    // Capture submit and store integers for each response
-    $("#submitButton").on("click", function() {
-      event.preventDefault();
-      friendName = $("#friendName").val().trim();
-      imageLink = $("#imageLink").val().trim();
-      q01Answer = parseInt($("#q01").val().trim());
-      q02Answer = parseInt($("#q02").val().trim());
-      q03Answer = parseInt($("#q03").val().trim());
-      q04Answer = parseInt($("#q04").val().trim());
-      q05Answer = parseInt($("#q05").val().trim());
-      q06Answer = parseInt($("#q06").val().trim());
-      q07Answer = parseInt($("#q07").val().trim());
-      q08Answer = parseInt($("#q08").val().trim());
-      q09Answer = parseInt($("#q09").val().trim());
-      q10Answer = parseInt($("#q10").val().trim());
+    // Add responses to the Responses array
+    responses.push(q01Answer, q02Answer, q03Answer, q04Answer, q05Answer,
+      q06Answer, q07Answer, q08Answer, q09Answer, q10Answer);
 
-      // Add responses to the Responses array
-      responses.push(q01Answer, q02Answer, q03Answer, q04Answer, q05Answer,
-        q06Answer, q07Answer, q08Answer, q09Answer, q10Answer);
+    // Create a object for the friend using the constructor created above
+    var newFriend = new friendProfile(friendName, imageLink, responses);
+    console.log(newFriend);
+    console.log(newFriend.responseObj);
 
-      // Create a object for the friend using the constructor created above
-      var newFriend = new friendProfile(friendName, imageLink, responses);
-      console.log(newFriend);
-      console.log(newFriend.responseObj);
+    // Reset the friend finder form
+    $("#friendForm")[0].reset();
+  });
 
-      // Reset the friend finder form
-      $("#friendForm")[0].reset();
-    });
+
+
   </script>
 
 </body>

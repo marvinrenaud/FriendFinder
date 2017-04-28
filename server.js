@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 
+
 // Set up the Express App
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -14,8 +15,9 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // ROUTER
-// require("./app/routing/apiRoutes")(app);
+require("./app/routing/apiRoutes")(app);
 require("./app/routing/htmlRoutes")(app);
+
 
 // LISTENER
 app.listen(PORT, function() {
