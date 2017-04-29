@@ -1,0 +1,28 @@
+{
+  "name": "friendfinder",
+  "version": "1.0.0",
+  "description": "package for friendfinder",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "jquery": "^3.2.1",
+    "jsdom": "^10.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marvinrenaud/FriendFinder.git"
+  },
+  "author": "mr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marvinrenaud/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/marvinrenaud/FriendFinder#readme"
+}
