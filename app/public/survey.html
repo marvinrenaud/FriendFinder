@@ -9,6 +9,7 @@
   <script src="https://use.fontawesome.com/9efa8a51cb.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <title>FriendFinder | Survey</title>
 </head>
@@ -143,7 +144,36 @@
       <hr>
       <button type="submit" class="btn btn-success" id="submitButton">Submit</button>
     </form>
+    <br>
+    <br>
+    <div>
+      <p> <a href="./api/friends">API Friends List</a> | <a href="https://github.com/marvinrenaud/FriendFinder">GIT Hub Repo</a> </p>
+    </div>
+
+
   </div>
+
+  <!-- Below code houses the modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Viola! Your New Best Friend!!!</h4>
+        </div>
+        <div class="modal-body">
+          <div id="bffName"></div>
+          <div id="bffPic"></div>
+          <br>
+          <p>Have fun <i class="fa fa-venus-mars" aria-hidden="true"></i></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 
 
 
@@ -160,6 +190,9 @@
     var imageLink = "";
     var newFriendObj;
     var friendPoints = 0;
+    var bestFriendPoints = 50;
+    var bestFriendName = "";
+    var bestFriendImage = "";
     var q01Answer = 0;
     var q02Answer = 0;
     var q03Answer = 0;
@@ -213,17 +246,34 @@
           console.log("Friend from DB Name: ", friends[3].name, "Responses: ", friends[3].responseObj);
           console.log("New friend: ", newFriendObj);
 
-          friendPoints = Math.abs(newFriendObj.responseObj[0] - friends[0].responseObj[0]);
-          console.log("Here are the points: ", friendPoints);
+          for (var j = 0; j < friends.length; j++) {
+            friendPoints = 0;
 
-          for (var i = 0; i < newFriendObj.responseObj.length; i++) {
-            friendPoints = Math.abs(newFriendObj.responseObj[i] - friends[0].responseObj[i]);
-            console.log("Here are the points for: ", i, " : ", friendPoints);
+            for (var i = 0; i < newFriendObj.responseObj.length; i++) {
+              var friendPointsTemp = Math.abs(newFriendObj.responseObj[i] - friends[j].responseObj[i]);
+              console.log("Here's the point spread for ", friends[j].name, " : ", friendPointsTemp);
+              friendPoints += friendPointsTemp
+              console.log("New friendPoints: ", friendPoints);
+            }
+
+            if (friendPoints <= bestFriendPoints) {
+              bestFriendPoints = friendPoints;
+              bestFriendName = friends[j].name;
+              bestFriendImage = friends[j].photo;
+            };
           }
+          console.log("Best friend is: ", bestFriendName);
+          showModal();
 
 
         });
-      };
+    };
+
+    function showModal() {
+      $('#myModal').modal();
+      $("#bffName").html('<h4>'+bestFriendName+'</h4>');
+      $("#bffPic").html('<img src='+bestFriendImage+ ' alt=bestFriend style="max-width:200px; max-height:300px;">');
+    }
   </script>
 
 </body>
